@@ -15,14 +15,22 @@ int main()
     Vector2 targetPosition = position;
     float scale = 1.0f;
     float targetScale = scale;
-    const float speed = 0.2f;
+    const float speed = 0.05f;
 
     SetTargetFPS(60);
 
     while (!WindowShouldClose())
     {
         // Update target position and scale continuously
-        targetPosition = GetMousePosition();
+        if (IsKeyDown(KEY_W))
+            targetPosition.y -= speed * 100;
+        if (IsKeyDown(KEY_S))
+            targetPosition.y += speed * 100;
+        if (IsKeyDown(KEY_A))
+            targetPosition.x -= speed * 100;
+        if (IsKeyDown(KEY_D))
+            targetPosition.x += speed * 100;
+
         targetScale = 1.0f + (fabs(targetPosition.x - position.x) / 50.0f + fabs(targetPosition.y - position.y) / 50.0f);
 
         // Interpolate position and scale
